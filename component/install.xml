@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install type="component" version="1.5.0">
+<install type="component"
+         version="1.5.0"
+         method="upgrade">
 	<name>k2search</name>
 	<creationDate>December 12, 2013</creationDate>
 	<author>Matt Thomas</author>
