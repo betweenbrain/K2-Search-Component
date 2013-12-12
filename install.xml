@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5.0">
+	<name>k2search</name>
+	<creationDate>December 12, 2013</creationDate>
+	<author>Matt Thomas</author>
+	<authorEmail>matt@betweenbrain.com</authorEmail>
+	<authorUrl>http://betweenbrain.com</authorUrl>
+	<copyright>Copyright (C) 2013 betweenbrain llc. All Rights Reserved.</copyright>
+	<license>GNU GPL v3 or later</license>
+	<version>.01</version>
+	<description>A K2 search component</description>
+
+	<files folder="site">
+		<filename>controller.php</filename>
+		<filename>k2search.php</filename>
+		<filename>views/k2search/view.html.php</filename>
+		<filename>views/k2search/tmpl/default.php</filename>
+	</files>
+
+	<administration>
+		<menu>k2search</menu>
+
+		<files folder="admin">
+			<filename>k2search.php</filename>
+		</files>
+
+	</administration>
+</install>
