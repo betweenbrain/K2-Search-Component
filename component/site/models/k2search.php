@@ -57,7 +57,7 @@ class K2searchModelK2search extends JModel {
 	private function highlightTerms($term, $results) {
 
 		foreach ($results as $result) {
-			$result->introtext = preg_replace('/([a-zA-Z\s])' . $term . '([a-zA-Z\s])/', '$1<i style="background: yellow">' . $term . '</i>$2', $result->introtext);
+			$result->introtext = preg_replace('/([a-zA-Z\s]' . $term . '[a-zA-Z\s])/i', '<i style="background: yellow">$1</i>', $result->introtext);
 		}
 
 		return $results;
