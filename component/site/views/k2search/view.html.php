@@ -21,8 +21,13 @@ class K2searchViewK2search extends JView {
 
 	function display($tpl = null) {
 
-		$model   =& $this->getModel();
-		$results = $model->search();
+		if (JRequest::getVar('term') != '') {
+			$model   = $this->getModel();
+			$results = $model->search();
+		} else {
+			$results['results']->term  = 'Please enter a search term';
+			$results['results']->count = 0;
+		}
 
 		$this->assignRef('results', $results);
 
