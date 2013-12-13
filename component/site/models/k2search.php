@@ -41,7 +41,7 @@ class K2searchModelK2search extends JModel {
 		' . $this->db->nameQuote('metadesc') . ',
 		' . $this->db->nameQuote('metakey') . '
 		)
-		AGAINST (\'' . $term . '\' IN BOOLEAN MODE)';
+		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)';
 
 		$this->db->setQuery($query);
 		$results = $this->db->loadObjectList('id');
@@ -66,7 +66,7 @@ class K2searchModelK2search extends JModel {
 	private function highlightTerms($term, $results) {
 
 		foreach ($results as $result) {
-			$result->introtext = preg_replace('/([a-zA-Z\s]' . $term . '[a-zA-Z\s])/i', '<i style="background: yellow">$1</i>', $result->introtext);
+			$result->introtext = preg_replace('/([a-zA-Z\s])' . $term . '([a-zA-Z\s])/i', '$1<i style="background: yellow">' . $term . '</i>$2', $result->introtext);
 		}
 
 		return $results;
