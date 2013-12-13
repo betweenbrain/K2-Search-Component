@@ -8,5 +8,19 @@
  * Copyright  Copyright (C) 2013 betweenbrain llc. All Rights Reserved.
  * License    GNU GPL v3 or later
  */
+?>
+	<form action="index.php" method="post">
+		<input type="text" name="term" size="32" />
+		<input type="hidden" name="option" value="com_k2search" />
+		<input type="hidden" name="view" value="k2search" />
+	</form>
 
-echo '<pre>' . print_r($this->results, true) . '</pre>';
+<?php
+/*
+echo '<pre>' . print_r($this->results, TRUE) . '</pre>';
+*/
+foreach ($this->results as $result) : ?>
+	<h2><?php echo $result->title ?></h2>
+	<p><?php echo $result->introtext ?></p>
+	<p><?php echo print_r(json_decode($result->extra_fields), TRUE) ?></p>
+<?php endforeach;
