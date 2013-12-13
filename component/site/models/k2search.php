@@ -34,6 +34,11 @@ class K2searchModelK2search extends JModel {
 
 		$this->db->setQuery($query);
 		$results = $this->db->loadObjectList('id');
+		$count   = count($results);
+
+		$results['results']        = new stdClass();
+		$results['results']->term  = $term;
+		$results['results']->count = $count;
 
 		//die('<pre>' . print_r($results, true) . '</pre>');
 

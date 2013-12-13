@@ -15,12 +15,15 @@
 		<input type="hidden" name="view" value="k2search" />
 	</form>
 
-<?php
-/*
-echo '<pre>' . print_r($this->results, TRUE) . '</pre>';
-*/
-foreach ($this->results as $result) : ?>
+<h2>Results for "<?php echo $this->results['results']->term ?>"</h2>
+<p>Displaying <?php echo $this->results['results']->count ?> results</p>
+<?php unset($this->results['results']) ?>
+<ol>
+<?php foreach ($this->results as $result) : ?>
+	<li>
 	<h2><?php echo $result->title ?></h2>
 	<p><?php echo $result->introtext ?></p>
 	<p><?php echo print_r(json_decode($result->extra_fields), TRUE) ?></p>
-<?php endforeach;
+	</li>
+<?php endforeach; ?>
+</ol>
