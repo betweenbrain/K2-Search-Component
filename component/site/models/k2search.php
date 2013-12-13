@@ -36,11 +36,29 @@ class K2searchModelK2search extends JModel {
 		$results = $this->db->loadObjectList('id');
 		$count   = count($results);
 
+		$results = $this->highlightTerms($term, $results);
+
 		$results['results']        = new stdClass();
 		$results['results']->term  = $term;
 		$results['results']->count = $count;
 
 		//die('<pre>' . print_r($results, true) . '</pre>');
+
+		return $results;
+	}
+
+	/**
+	 * Rudimentary term highlighting
+	 *
+	 * @param $term
+	 * @param $results
+	 * @return mixed
+	 */
+	private function highlightTerms($term, $results) {
+
+		foreach ($results as $result) {
+			$result->introtext = preg_replace('/([a-zA-Z\s])' . $term . '([a-zA-Z\s])/', '$1<i style="background: yellow">' . $term . '</i>$2', $result->introtext);
+		}
 
 		return $results;
 	}
