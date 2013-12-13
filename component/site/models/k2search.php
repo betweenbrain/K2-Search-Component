@@ -28,9 +28,20 @@ class K2searchModelK2search extends JModel {
 
 		$term = JRequest::getVar('term');
 
-		$query = 'SELECT * FROM ' . $this->db->nameQuote('#__k2_items') . '
-				WHERE ' . $this->db->nameQuote('introtext') . '
-				LIKE \'%' . $term . '%\'';
+		$query = 'SELECT *
+		FROM ' . $this->db->nameQuote('#__k2_items') . '
+		WHERE MATCH (' . $this->db->nameQuote('title') . ',
+		' . $this->db->nameQuote('introtext') . ',
+		' . $this->db->nameQuote('fulltext') . ',
+		' . $this->db->nameQuote('extra_fields_search') . ',
+		' . $this->db->nameQuote('image_caption') . ',
+		' . $this->db->nameQuote('image_credits') . ',
+		' . $this->db->nameQuote('video_caption') . ',
+		' . $this->db->nameQuote('video_credits') . ',
+		' . $this->db->nameQuote('metadesc') . ',
+		' . $this->db->nameQuote('metakey') . '
+		)
+		AGAINST (\'' . $term . '\' IN BOOLEAN MODE)';
 
 		$this->db->setQuery($query);
 		$results = $this->db->loadObjectList('id');
@@ -41,8 +52,6 @@ class K2searchModelK2search extends JModel {
 		$results['results']        = new stdClass();
 		$results['results']->term  = $term;
 		$results['results']->count = $count;
-
-		//die('<pre>' . print_r($results, true) . '</pre>');
 
 		return $results;
 	}
