@@ -24,10 +24,7 @@ class K2searchController extends JController {
 	 * @access    public
 	 */
 	function display() {
+
 		parent::display();
-	}
-
-	function search(){
-
 	}
 }
