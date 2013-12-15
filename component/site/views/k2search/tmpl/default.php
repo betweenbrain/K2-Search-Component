@@ -9,7 +9,7 @@
  * License    GNU GPL v3 or later
  */
 ?>
-<form action="index.php" method="post">
+<form action="" method="post">
 	<input type="hidden" name="option" value="com_k2search" />
 	<input type="hidden" name="view" value="k2search" />
 	<input type="hidden" name="layout" value="default" />
