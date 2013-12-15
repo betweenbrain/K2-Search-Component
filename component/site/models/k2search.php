@@ -20,13 +20,20 @@ class K2searchModelK2search extends JModel {
 	}
 
 	/**
-	 * Gets the greeting
+	 * Performs MySQL full text search of all indexed K2 columns
 	 *
 	 * @return string The greeting to be displayed to the user
 	 */
 	function search() {
 
-		$term = JRequest::getVar('term');
+		$term               = JRequest::getVar('term');
+		$results['results'] = new stdClass();
+
+		if (!$term) {
+			$results['results']->message = 'Please enter a search term';
+
+			return $results;
+		}
 
 		$query = 'SELECT *
 		FROM ' . $this->db->nameQuote('#__k2_items') . '
@@ -44,12 +51,10 @@ class K2searchModelK2search extends JModel {
 		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)';
 
 		$this->db->setQuery($query);
-		$results = $this->db->loadObjectList('id');
-		$count   = count($results);
 
-		$results = $this->highlightTerms($term, $results);
-
-		$results['results']        = new stdClass();
+		$results                   = $this->db->loadObjectList('id');
+		$results                   = $this->highlightTerms($term, $results);
+		$count                     = count($results);
 		$results['results']->term  = $term;
 		$results['results']->count = $count;
 
@@ -58,6 +63,8 @@ class K2searchModelK2search extends JModel {
 
 	/**
 	 * Rudimentary term highlighting
+	 *
+	 * TODO: Current regex looks only for alpha chars and spaces to avoid html matches.
 	 *
 	 * @param $term
 	 * @param $results

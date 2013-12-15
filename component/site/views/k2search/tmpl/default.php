@@ -17,8 +17,13 @@
 	<input type="text" name="term" size="32" />
 </form>
 
-<h2>Results for "<?php echo $this->results['results']->term ?>"</h2>
-<p>Displaying <?php echo $this->results['results']->count ?> results</p>
+<?php if (isset($this->results['results']->term)) : ?>
+	<h2>Results for "<?php echo $this->results['results']->term ?>"</h2>
+	<p>Displaying <?php echo $this->results['results']->count ?> results</p>
+<?php endif ?>
+<?php if (isset($this->results['results']->message)) : ?>
+	<p><?php echo $this->results['results']->message ?></p>
+<?php endif ?>
 <?php unset($this->results['results']) ?>
 <ol>
 	<?php foreach ($this->results as $result) : ?>
