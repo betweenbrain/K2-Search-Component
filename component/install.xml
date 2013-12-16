@@ -18,6 +18,7 @@
 		<filename>models/k2search.php</filename>
 		<filename>views/k2search/view.html.php</filename>
 		<filename>views/k2search/tmpl/default.php</filename>
+		<filename>views/k2search/tmpl/default.xml</filename>
 	</files>
 
 	<administration>

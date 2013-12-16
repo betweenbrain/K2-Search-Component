@@ -1,0 +1,12 @@
+<metadata>
+	<state>
+		<params>
+			<param name="k2category"
+			       type="text"
+			       default=""
+			       label="Enter a category"
+			       description=""
+			       size="3"/>
+		</params>
+	</state>
+</metadata>

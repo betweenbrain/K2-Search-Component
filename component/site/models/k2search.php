@@ -26,6 +26,9 @@ class K2searchModelK2search extends JModel {
 	 */
 	function search() {
 
+		$params     = & JComponentHelper::getParams('com_k2search');
+		$k2category = $params->get('k2category');
+
 		$term               = JRequest::getVar('term');
 		$results['results'] = new stdClass();
 
@@ -37,7 +40,8 @@ class K2searchModelK2search extends JModel {
 
 		$query = 'SELECT *
 		FROM ' . $this->db->nameQuote('#__k2_items') . '
-		WHERE MATCH (' . $this->db->nameQuote('title') . ',
+		WHERE ' . $this->db->nameQuote('catid') . ' = ' . $k2category . '
+		AND MATCH (' . $this->db->nameQuote('title') . ',
 		' . $this->db->nameQuote('introtext') . ',
 		' . $this->db->nameQuote('fulltext') . ',
 		' . $this->db->nameQuote('extra_fields_search') . ',
