@@ -40,8 +40,7 @@ class K2searchModelK2search extends JModel {
 
 		$query = 'SELECT *
 		FROM ' . $this->db->nameQuote('#__k2_items') . '
-		WHERE ' . $this->db->nameQuote('catid') . ' = ' . $k2category . '
-		AND MATCH (' . $this->db->nameQuote('title') . ',
+		WHERE MATCH (' . $this->db->nameQuote('title') . ',
 		' . $this->db->nameQuote('introtext') . ',
 		' . $this->db->nameQuote('fulltext') . ',
 		' . $this->db->nameQuote('extra_fields_search') . ',
@@ -54,10 +53,16 @@ class K2searchModelK2search extends JModel {
 		)
 		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)';
 
+		if ($k2category) {
+			$query .= 'AND ' . $this->db->nameQuote('catid') . ' = ' . $k2category . '';
+		}
+
 		$this->db->setQuery($query);
 
-		$results                   = $this->db->loadObjectList('id');
-		$results                   = $this->highlightTerms($term, $results);
+		$results = $this->db->loadObjectList('id');
+		if (!empty($results)) {
+			$results = $this->highlightTerms($term, $results);
+		}
 		$count                     = count($results);
 		$results['results']->term  = $term;
 		$results['results']->count = $count;
@@ -72,6 +77,7 @@ class K2searchModelK2search extends JModel {
 	 *
 	 * @param $term
 	 * @param $results
+	 *
 	 * @return mixed
 	 */
 	private function highlightTerms($term, $results) {
