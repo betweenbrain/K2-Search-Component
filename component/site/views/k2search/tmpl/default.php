@@ -9,11 +9,7 @@
  * License    GNU GPL v3 or later
  */
 ?>
-<form action="" method="post">
-	<input type="hidden" name="option" value="com_k2search" />
-	<input type="hidden" name="view" value="k2search" />
-	<input type="hidden" name="layout" value="default" />
-	<input type="hidden" name="Itemid" value="<?php echo JSite::getMenu()->getActive()->id ?>" />
+<form action="" method="get">
 	<input type="text" name="term" size="32" />
 </form>
 
