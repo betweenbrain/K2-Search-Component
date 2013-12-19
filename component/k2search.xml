@@ -16,6 +16,7 @@
 		<filename>controller.php</filename>
 		<filename>k2search.php</filename>
 		<filename>models/k2search.php</filename>
+		<filename>router.php</filename>
 		<filename>views/k2search/view.html.php</filename>
 		<filename>views/k2search/tmpl/default.php</filename>
 		<filename>views/k2search/tmpl/default.xml</filename>
