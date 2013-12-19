@@ -18,6 +18,12 @@ function K2searchBuildRoute(&$query) {
 		unset($query['term']);
 	}
 
+	if (isset($query['redirect'])) {
+		if ($query['redirect'] = 2) {
+			unset($query['redirect']);
+		}
+	}
+
 	return $segments;
 }
 

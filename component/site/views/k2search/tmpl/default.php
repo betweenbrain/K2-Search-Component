@@ -8,9 +8,17 @@
  * Copyright  Copyright (C) 2013 betweenbrain llc. All Rights Reserved.
  * License    GNU GPL v3 or later
  */
+
+$app = JFactory::getApplication();
+$redirect = (int) JRequest::getVar('redirect');
+if (JRequest::getVar('term') && $redirect) {
+	$app->redirect(JRoute::_('index.php?redirect=2&term=' . JRequest::getVar('term')));
+}
+
 ?>
 <form action="" method="post">
 	<input type="text" name="term" size="32" />
+	<input type="hidden" name="redirect" value="1" />
 </form>
 
 <small><a href="<?php echo JRoute::_('index.php?term=' . JRequest::getVar('term')); ?>">permalink</a></small>
