@@ -25,11 +25,7 @@ function K2searchParseRoute($segments) {
 
 	$vars = array();
 
-	switch ($segments[0]) {
-		case 'k2search':
-			$vars['view'] = 'search';
-			break;
-	}
+	$vars['term'] = $segments[0];
 
 	return $vars;
 }
