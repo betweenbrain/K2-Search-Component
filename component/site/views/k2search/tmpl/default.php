@@ -9,11 +9,11 @@
  * License    GNU GPL v3 or later
  */
 ?>
-<form action="" method="get">
+<form action="" method="post">
 	<input type="text" name="term" size="32" />
 </form>
 
-<a href="<?php echo JRoute::_('index.php?term=' . JRequest::getVar('term')); ?>">Test Link</a>
+<small><a href="<?php echo JRoute::_('index.php?term=' . JRequest::getVar('term')); ?>">permalink</a></small>
 
 <?php if (isset($this->results['results']->term)) : ?>
 	<h2>Results for "<?php echo $this->results['results']->term ?>"</h2>
