@@ -13,6 +13,8 @@
 	<input type="text" name="term" size="32" />
 </form>
 
+<a href="<?php echo JRoute::_('index.php?term=' . JRequest::getVar('term')); ?>">Test Link</a>
+
 <?php if (isset($this->results['results']->term)) : ?>
 	<h2>Results for "<?php echo $this->results['results']->term ?>"</h2>
 	<p>Displaying <?php echo $this->results['results']->count ?> results</p>
