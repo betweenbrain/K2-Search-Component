@@ -38,9 +38,17 @@ class K2searchModelK2search extends JModel {
 			return $results;
 		}
 
-		$query = 'SELECT *
+		$query = 'SELECT *,
+		MATCH (
+		' . $this->db->nameQuote('title') . ',
+		' . $this->db->nameQuote('introtext') . ',
+		' . $this->db->nameQuote('fulltext') . '
+		)
+		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)
+		as relevance
 		FROM ' . $this->db->nameQuote('#__k2_items') . '
-		WHERE MATCH (' . $this->db->nameQuote('title') . ',
+		WHERE MATCH (
+		' . $this->db->nameQuote('title') . ',
 		' . $this->db->nameQuote('introtext') . ',
 		' . $this->db->nameQuote('fulltext') . ',
 		' . $this->db->nameQuote('extra_fields_search') . ',
@@ -51,7 +59,8 @@ class K2searchModelK2search extends JModel {
 		' . $this->db->nameQuote('metadesc') . ',
 		' . $this->db->nameQuote('metakey') . '
 		)
-		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)';
+		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)
+		ORDER BY relevance DESC';
 
 		if ($k2category) {
 			$query .= 'AND ' . $this->db->nameQuote('catid') . ' = ' . $k2category . '';
