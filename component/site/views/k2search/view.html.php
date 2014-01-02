@@ -17,14 +17,19 @@ jimport('joomla.application.component.view');
  * @package    HelloWorld
  */
 
-class K2searchViewK2search extends JView {
+class K2searchViewK2search extends JView
+{
 
-	function display($tpl = NULL) {
+	function display($tpl = null)
+	{
 
-		$model   = $this->getModel();
-		$results = $model->search();
+		$model         = $this->getModel();
+		$params        = & JComponentHelper::getParams('com_k2search');
+		$showSearchbox = $params->get('showSearchbox');
+		$results       = $model->search();
 
 		$this->assignRef('results', $results);
+		$this->assignRef('showSearchbox', $showSearchbox);
 
 		parent::display($tpl);
 	}

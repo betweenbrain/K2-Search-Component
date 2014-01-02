@@ -9,10 +9,11 @@
  * License    GNU GPL v3 or later
  */
 ?>
-<form action="" method="get">
-	<input type="text" name="term" size="32" />
-</form>
-
+<?php if ($this->showSearchbox) : ?>
+	<form action="" method="get">
+		<input type="text" name="term" size="32" />
+	</form>
+<?php endif; ?>
 <?php if (isset($this->results['results']->term)) : ?>
 	<h2>Results for "<?php echo $this->results['results']->term ?>"</h2>
 	<p>Displaying <?php echo $this->results['results']->count ?> results</p>
@@ -26,7 +27,6 @@
 		<li>
 			<h2><?php echo $result->title ?></h2>
 			<p><?php echo $result->introtext ?></p>
-			<p><?php // echo print_r(json_decode($result->extra_fields), TRUE) ?></p>
 		</li>
 	<?php endforeach; ?>
 </ol>

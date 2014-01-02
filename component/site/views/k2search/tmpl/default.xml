@@ -7,6 +7,15 @@
 			       label="Enter a category"
 			       description=""
 			       size="3"/>
+			<param name="showSearchbox"
+			       type="list"
+			       default=""
+			       label="Show searchbox"
+			       description=""
+			       size="3">
+				<option value="1">Yes</option>
+				<option value="">No</option>
+			</param>
 		</params>
 	</state>
 </metadata>
