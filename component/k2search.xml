@@ -26,6 +26,7 @@
 
 		<files folder="admin">
 			<filename>k2search.php</filename>
+			<filename>elements/k2categories.php</filename>
 		</files>
 
 	</administration>

@@ -1,16 +1,16 @@
 <metadata>
 	<state>
-		<params>
+		<params addpath="/administrator/components/com_k2search/elements">
 			<param name="k2category"
-			       type="text"
+			       type="k2categories"
 			       default=""
-			       label="Enter a category"
+			       label="K2 Category (optional)"
 			       description=""
 			       size="3"/>
 			<param name="showSearchbox"
 			       type="list"
 			       default=""
-			       label="Show searchbox"
+			       label="Show Searchbox"
 			       description=""
 			       size="3">
 				<option value="1">Yes</option>
