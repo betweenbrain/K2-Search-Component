@@ -21,7 +21,15 @@
 		<filename>views/k2search/tmpl/default.xml</filename>
 	</files>
 
+	<languages folder="site">
+		<language tag="en-GB">language/en-GB/en-GB.com_k2search.ini</language>
+	</languages>
+
 	<administration>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/en-GB.com_k2search.ini</language>
+		</languages>
+
 		<menu>k2search</menu>
 
 		<files folder="admin">

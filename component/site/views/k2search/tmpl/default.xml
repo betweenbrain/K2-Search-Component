@@ -4,17 +4,16 @@
 			<param name="k2category"
 			       type="k2categories"
 			       default=""
-			       label="K2 Category (optional)"
-			       description=""
+			       label="COM_K2_SEARCH_K2CATEGORIES_LABEL"
+			       description="COM_K2_SEARCH_K2CATEGORIES_DESC"
 			       size="3"/>
 			<param name="showSearchbox"
 			       type="list"
 			       default=""
-			       label="Show Searchbox"
-			       description=""
-			       size="3">
-				<option value="1">Yes</option>
-				<option value="">No</option>
+			       label="COM_K2_SEARCH_SHOW_SEARCHBOX_LABEL"
+			       description="COM_K2_SEARCH_SHOW_SEARCHBOX_DESC">
+				<option value="1">COM_K2_SEARCH_YES</option>
+				<option value="">COM_K2_SEARCH_NO</option>
 			</param>
 		</params>
 	</state>

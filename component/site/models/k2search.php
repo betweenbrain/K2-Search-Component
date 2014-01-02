@@ -33,7 +33,7 @@ class K2searchModelK2search extends JModel {
 		$results['results'] = new stdClass();
 
 		if (!$term) {
-			$results['results']->message = 'Please enter a search term';
+			$results['results']->message = JText::_('COM_K2_SEARCH_NO_SEARCH_TERM');
 
 			return $results;
 		}
