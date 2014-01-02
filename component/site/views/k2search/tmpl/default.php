@@ -56,7 +56,7 @@
 
 				$plugins = parse_ini_string($result->plugins, false, INI_SCANNER_RAW);
 
-				$result->tags          = $plugins->tags;
+				$result->tags          = $plugins['tags'];
 				$result->link          = '';
 				$result->videoDuration = $plugins['video_datavideoDuration'];
 				$result->videoImage    = $plugins['video_datavideoImageUrl'];
