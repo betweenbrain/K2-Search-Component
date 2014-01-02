@@ -46,25 +46,20 @@ class K2searchModelK2search extends JModel {
 		)
 		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)
 		as relevance
-		FROM ' . $this->db->nameQuote('#__k2_items') . '
-		WHERE MATCH (
+		FROM ' . $this->db->nameQuote('#__k2_items') . '';
+
+		if ($k2category) {
+			$query .= ' WHERE ' . $this->db->nameQuote('catid') . ' = ' . $k2category . '';
+		}
+
+		$query .= ' AND MATCH (
 		' . $this->db->nameQuote('title') . ',
 		' . $this->db->nameQuote('introtext') . ',
 		' . $this->db->nameQuote('fulltext') . ',
-		' . $this->db->nameQuote('extra_fields_search') . ',
-		' . $this->db->nameQuote('image_caption') . ',
-		' . $this->db->nameQuote('image_credits') . ',
-		' . $this->db->nameQuote('video_caption') . ',
-		' . $this->db->nameQuote('video_credits') . ',
-		' . $this->db->nameQuote('metadesc') . ',
-		' . $this->db->nameQuote('metakey') . '
+		' . $this->db->nameQuote('extra_fields_search') . '
 		)
 		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)
 		ORDER BY relevance DESC';
-
-		if ($k2category) {
-			$query .= 'AND ' . $this->db->nameQuote('catid') . ' = ' . $k2category . '';
-		}
 
 		$this->db->setQuery($query);
 
