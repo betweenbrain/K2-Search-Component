@@ -105,7 +105,8 @@
 				$plugins = parse_ini_string($result->plugins, false, INI_SCANNER_RAW);
 
 				$result->tags          = str_replace(',', ' ', $plugins['tags']);
-				$result->link          = '';
+				$result->link          = K2HelperRoute::getItemRoute($result->id.':'.urlencode($result->alias), $result->catid.':'.urlencode($result->category->alias));
+						$result->link = urldecode(JRoute::_($link));
 				$result->videoDuration = $plugins['video_datavideoDuration'];
 				$result->videoImage    = $plugins['video_datavideoImageUrl'];
 				// Change image file name to use the smaller version
