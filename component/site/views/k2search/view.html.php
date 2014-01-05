@@ -27,8 +27,10 @@ class K2searchViewK2search extends JView
 		$params        = & JComponentHelper::getParams('com_k2search');
 		$showSearchbox = $params->get('showSearchbox');
 		$results       = $model->search();
+		$tags          = $model->getTags();
 
 		$this->assignRef('results', $results);
+		$this->assignRef('tags', $tags);
 		$this->assignRef('showSearchbox', $showSearchbox);
 
 		parent::display($tpl);

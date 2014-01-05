@@ -9,56 +9,9 @@
  * License    GNU GPL v3 or later
  */
 
-$tags = array();
-$tags[$this->category->name]['hash'] = '#';
-$tags[$this->category->name]['class'] = 'selected';
-$tags[$this->category->name]['compare'] = '';
-$tags[$this->category->name]['count'] = count($this->leading);
-$tags[$this->category->name]['data-filter'] = '*';
-$tags[$this->category->name]['name'] = 'All in ' . $this->category->name;
-$tags[$this->category->name]['nickname'] = 'All in ' . $this->category->name;
-foreach ($this->leading as $item)
-{
-	if (isset($item->tags) && count($item->tags))
-	{
-
-		foreach ($item->tags as $tag)
-		{
-			if (isset($tag->name, $tags))
-			{
-				$tags[$tag->name]['count']++;
-			}
-			else
-			{
-				$tags[$tag->name]['count'] = 1;
-			}
-			$tags[$tag->name]['name']        = $tag->name;
-			$tags[$tag->name]['class']       = '';
-			$tags[$tag->name]['compare']     = $tag->name;
-			$tags[$tag->name]['alias']       = JFilterOutput::stringURLSafe($tag->name);
-			$tags[$tag->name]['hash']        = '#' . JFilterOutput::stringURLSafe($tag->name);
-			$tags[$tag->name]['data-filter'] = '.' . JFilterOutput::stringURLSafe($tag->name);
-
-			// Truncate tag name at colon if it contains one
-			$tag->nickname = strpos($tag->name, ':') ? strstr($tag->name, ':', true) : $tag->name;
-			// Shorten remaining text to three words if it has more than 4
-			if (substr_count($tag->nickname, ' ') > 3)
-			{
-				$split = explode(' ', $tag->nickname, 4);
-				unset($split[3]);
-				$tag->nickname = implode(' ', $split);
-			}
-			$tags[$tag->name]['nickname'] = $tag->nickname;
-			$tags[$tag->name]['link']     = $tag->link;
-		}
-	}
-}
-$break = null;
-$count = count($tags);
-$divisor = ceil($count / 3);
 ?>
 <div class="container">
-	<?php if (count($tags) > 1) :
+	<?php if (count($this->tags) > 1) :
 		$app = JFactory::getApplication();
 		$doc = JFactory::getDocument();
 		$doc->addScript('http://cdn.guggenheim.org/lib/js/jquery.isotope.min.js');
@@ -75,12 +28,15 @@ $divisor = ceil($count / 3);
 			<div class="tag-lists">
 				<ul class="tag-list">
 					<?php
-					usort($tags, function ($a, $b)
+					usort($this->tags, function ($a, $b)
 					{
 						return strcmp(strtolower($a['compare']), strtolower($b['compare']));
 					});
 					$index = 0;
-					foreach ($tags as $tag)
+					$break = null;
+					$count = count($this->tags);
+					$divisor = ceil($count / 3);
+					foreach ($this->tags as $tag)
 					{
 						if ($index > 0)
 						{
@@ -106,7 +62,9 @@ $divisor = ceil($count / 3);
 						}
 						?>
 						<li>
-							<a class="cloud <?php echo $tag['class'] ?>" href="<?php echo $tag['hash'] ?>" title="<?php echo $tag['name'] ?>" data-filter="<?php echo $tag['data-filter'] ?>" onClick="_gaq.push(['_trackEvent', 'Interaction', 'Video', 'Showing Filter: <?php echo $tag['nickname'] ?>']);"><?php echo $tag['nickname'] ?>
+							<a class="cloud <?php echo $tag['class'] ?>" href="<?php echo $tag['hash'] ?>"
+							   title="<?php echo $tag['name'] ?>" data-filter="<?php echo $tag['data-filter'] ?>"
+							   onClick="_gaq.push(['_trackEvent', 'Interaction', 'Video', 'Showing Filter: <?php echo $tag['nickname'] ?>']);"><?php echo $tag['nickname'] ?>
 								<span class="count"><?php echo $tag['count'] ?></span>
 							</a>
 						</li>
@@ -157,22 +115,26 @@ $divisor = ceil($count / 3);
 				<div class="<?php echo $result->tags ?> itemContainer">
 					<div class="catItemView">
 
-						<a class="blockContainer" href="<?php echo $result->link; ?>" title="<?php echo $result->title ?>">
+						<a class="blockContainer" href="<?php echo $result->link; ?>"
+						   title="<?php echo $result->title ?>">
 							<div class="itemDescription">
 								<p class="itemTitle"><?php echo $result->shortTitle; ?>
 									<span class="duration"><?php echo $result->videoDuration ?></span></p>
 							</div>
-							<img src="<?php echo $result->videoImage; ?>" />
+							<img src="<?php echo $result->videoImage; ?>"/>
 						</a>
 
 						<div class="details">
 							<p class="views">
 								<?php echo number_format($result->hits); ?> <?php echo JText::_('K2_TIMES'); ?>
 							</p>
+
 							<h1 class="title"><?php echo $result->title; ?></h1>
+
 							<p class="subtitle">
 								<span class="duration"><?php echo $result->videoDuration ?></span> |
-								<span class="date"><?php echo JHTML::_('date', $result->created, JText::_('K2_DATE_FORMAT_LC2')); ?></span>
+								<span
+									class="date"><?php echo JHTML::_('date', $result->created, JText::_('K2_DATE_FORMAT_LC2')); ?></span>
 							</p>
 
 							<div class="catItemIntroText">
