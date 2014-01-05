@@ -118,12 +118,12 @@ class K2searchModelK2search extends JModel
 		foreach ($items as $item)
 		{
 			$itemPluginsData = parse_ini_string($item->plugins, false, INI_SCANNER_RAW);
-			$item->tags      = explode(',', $itemPluginsData['tags']);
+			$itemTags      = explode(',', $itemPluginsData['tags']);
 
-			if (isset($item->tags) && count($item->tags))
+			if (isset($itemTags) && count($itemTags))
 			{
 
-				foreach ($item->tags as $tag)
+				foreach ($itemTags as $tag)
 				{
 					if (isset($tags[$tag], $tags))
 					{
