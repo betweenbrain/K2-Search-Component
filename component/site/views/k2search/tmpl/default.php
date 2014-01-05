@@ -62,7 +62,7 @@
 						}
 						?>
 						<li>
-							<a class="cloud <?php echo $tag['class'] ?>" href="<?php echo $tag['hash'] ?>"
+							<a class="cloud <?php echo $tag['alias'] ?>" href="<?php echo $tag['hash'] ?>"
 							   title="<?php echo $tag['name'] ?>" data-filter="<?php echo $tag['data-filter'] ?>"
 							   onClick="_gaq.push(['_trackEvent', 'Interaction', 'Video', 'Showing Filter: <?php echo $tag['nickname'] ?>']);"><?php echo $tag['nickname'] ?>
 								<span class="count"><?php echo $tag['count'] ?></span>
