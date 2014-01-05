@@ -136,8 +136,8 @@ class K2searchModelK2search extends JModel
 					$tags[$tag]['name']        = $tag;
 					$tags[$tag]['compare']     = $tag;
 					$tags[$tag]['alias']       = JFilterOutput::stringURLSafe($tag);
-					$tags[$tag]['hash']        = '#' . JFilterOutput::stringURLSafe($tag);
-					$tags[$tag]['data-filter'] = '.' . JFilterOutput::stringURLSafe($tag);
+					$tags[$tag]['hash']        = '#' . $tags[$tag]['alias'];
+					$tags[$tag]['data-filter'] = '.' . $tags[$tag]['alias'];
 
 					// Truncate tag name at colon if it contains one
 					$tags[$tag]['nickname'] = strpos($tag, ':') ? strstr($tag, ':', true) : $tag;
