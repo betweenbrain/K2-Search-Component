@@ -20,7 +20,8 @@ include(JPATH_SITE . '/components/com_k2/helpers/route.php');
 		$doc->addScript(JURI::base(true) . '/templates/' . $app->getTemplate() . '/js/jquery.video-filter-init.min.js');
 		?>
 		<div class="showing">
-			<h2><?php echo $this->results['results']->count ?> results for "<?php echo $this->results['results']->term ?>"</h2>
+			<h3></h3>
+			<?php echo $this->results['results']->count ?> results for "<?php echo $this->results['results']->term ?>"
 			<select class="filters">
 				<option data-filter="date" class="selected">Recently Added</option>
 				<option data-filter="views">Most Viewed</option>
