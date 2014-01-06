@@ -9,6 +9,8 @@
  * License    GNU GPL v3 or later
  */
 
+include(JPATH_SITE . '/components/com_k2/helpers/route.php');
+
 ?>
 <div class="container">
 	<?php if (count($this->tags) > 1) :
@@ -63,8 +65,8 @@
 						?>
 						<li>
 							<a class="cloud <?php echo $tag['alias'] ?>" href="<?php echo $tag['hash'] ?>"
-							   title="<?php echo $tag['name'] ?>" data-filter="<?php echo $tag['data-filter'] ?>"
-							   onClick="_gaq.push(['_trackEvent', 'Interaction', 'Video', 'Showing Filter: <?php echo $tag['nickname'] ?>']);"><?php echo $tag['nickname'] ?>
+								title="<?php echo $tag['name'] ?>" data-filter="<?php echo $tag['data-filter'] ?>"
+								onClick="_gaq.push(['_trackEvent', 'Interaction', 'Video', 'Showing Filter: <?php echo $tag['nickname'] ?>']);"><?php echo $tag['nickname'] ?>
 								<span class="count"><?php echo $tag['count'] ?></span>
 							</a>
 						</li>
@@ -105,8 +107,8 @@
 				$plugins = parse_ini_string($result->plugins, false, INI_SCANNER_RAW);
 
 				$result->tags          = str_replace(',', ' ', $plugins['tags']);
-				$result->link          = K2HelperRoute::getItemRoute($result->id.':'.urlencode($result->alias), $result->catid.':'.urlencode($result->category->alias));
-						$result->link = urldecode(JRoute::_($link));
+				$result->link          = K2HelperRoute::getItemRoute($result->id . ':' . urlencode($result->alias), $result->catid . ':' . urlencode($result->category->alias));
+				$result->link          = urldecode(JRoute::_($result->link));
 				$result->videoDuration = $plugins['video_datavideoDuration'];
 				$result->videoImage    = $plugins['video_datavideoImageUrl'];
 				// Change image file name to use the smaller version
@@ -117,12 +119,12 @@
 					<div class="catItemView">
 
 						<a class="blockContainer" href="<?php echo $result->link; ?>"
-						   title="<?php echo $result->title ?>">
+							title="<?php echo $result->title ?>">
 							<div class="itemDescription">
 								<p class="itemTitle"><?php echo $result->shortTitle; ?>
 									<span class="duration"><?php echo $result->videoDuration ?></span></p>
 							</div>
-							<img src="<?php echo $result->videoImage; ?>"/>
+							<img src="<?php echo $result->videoImage; ?>" />
 						</a>
 
 						<div class="details">
