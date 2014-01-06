@@ -20,7 +20,7 @@ include(JPATH_SITE . '/components/com_k2/helpers/route.php');
 		$doc->addScript(JURI::base(true) . '/templates/' . $app->getTemplate() . '/js/jquery.video-filter-init.min.js');
 		?>
 		<div class="showing">
-			<h3>Showing</h3>
+
 			<select class="filters">
 				<option data-filter="date" class="selected">Recently Added</option>
 				<option data-filter="views">Most Viewed</option>
