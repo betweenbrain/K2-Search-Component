@@ -30,7 +30,7 @@ class K2searchViewK2search extends JView
 		$tagList          = $model->getTagList();
 
 		$this->assignRef('results', $results);
-		$this->assignRef('tags', $taglist);
+		$this->assignRef('tags', $tagList);
 		$this->assignRef('showSearchbox', $showSearchbox);
 
 		parent::display($tpl);
