@@ -13,7 +13,7 @@ include(JPATH_SITE . '/components/com_k2/helpers/route.php');
 
 ?>
 <div class="container">
-	<?php if (count($this->tags) > 1) :
+	<?php if (count($this->tags)) :
 		$app = JFactory::getApplication();
 		$doc = JFactory::getDocument();
 		$doc->addScript('http://cdn.guggenheim.org/lib/js/jquery.isotope.min.js');
