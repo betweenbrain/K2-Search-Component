@@ -19,10 +19,12 @@ $model = $this->getModel();
 		$doc->addScript('http://cdn.guggenheim.org/lib/js/jquery.isotope.min.js');
 		$doc->addScript(JURI::base(true) . '/templates/' . $app->getTemplate() . '/js/jquery.video-filter-init.min.js');
 		?>
+		<h3>
+			<?php echo $this->results['results']->count ?> results for "<?php echo $this->results['results']->term ?>"
+		</h3>
+			<?php unset($this->results['results']) ?>
 		<div class="showing">
 			<h3></h3>
-			<?php echo $this->results['results']->count ?> results for "<?php echo $this->results['results']->term ?>"
-			<?php unset($this->results['results']) ?>
 			<select class="filters">
 				<option data-filter="date" class="selected">Recently Added</option>
 				<option data-filter="views">Most Viewed</option>
@@ -82,7 +84,7 @@ $model = $this->getModel();
 			</div>
 		</div>
 	<?php endif ?>
-	<div id="k2Container" class="itemListView isotope" style="position: relative; overflow: visible; height: 1344px;">
+	<div id="k2Container" class="itemListView isotope">
 
 		<div class="itemList clearfix">
 			<?php foreach ($this->results as $result) : ?>
