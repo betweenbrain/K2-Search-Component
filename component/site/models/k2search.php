@@ -52,20 +52,21 @@ class K2searchModelK2search extends JModel
 		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)
 		as relevance
 		FROM ' . $this->db->nameQuote('#__k2_items') . '
-		WHERE ' . $this->db->nameQuote('published') . ' = 1';
+		WHERE ' . $this->db->nameQuote('published') . ' = 1
+		AND ' . $this->db->nameQuote('trash') . ' = 0';
 
 		if ($k2category)
 		{
 			$query .= ' AND ' . $this->db->nameQuote('catid') . ' = ' . $k2category . '';
 		}
 
-		$query .= ' AND MATCH (
+		$query .= ' AND MATCH(
 		' . $this->db->nameQuote('title') . ',
 		' . $this->db->nameQuote('introtext') . ',
 		' . $this->db->nameQuote('fulltext') . ',
 		' . $this->db->nameQuote('extra_fields_search') . '
 		)
-		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)
+		AGAINST(\'*' . $term . '*\' IN BOOLEAN MODE)
 		ORDER BY relevance DESC';
 
 		$this->db->setQuery($query);
