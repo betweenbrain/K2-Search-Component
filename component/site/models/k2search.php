@@ -89,7 +89,6 @@ class K2searchModelK2search extends JModel
 	 */
 	private function highlightTerms($term, $results)
 	{
-
 		foreach ($results as $result)
 		{
 			if (strpos($term, ' '))
@@ -183,5 +182,27 @@ class K2searchModelK2search extends JModel
 
 		return $shortTitle;
 
+	}
+
+	/**
+	 * Formats the raw results to comply with design requirements
+	 *
+	 * @param $result
+	 *
+	 * @return mixed
+	 */
+	function formatResults($result)
+	{
+		$plugins = parse_ini_string($result->plugins, false, INI_SCANNER_RAW);
+
+		$result->tags          = strtolower(str_replace(',', ' ', $plugins['tags']));
+		$result->link          = K2HelperRoute::getItemRoute($result->id . ':' . urlencode($result->alias), $result->catid . ':' . urlencode($result->category->alias));
+		$result->link          = urldecode(JRoute::_($result->link));
+		$result->videoDuration = $plugins['video_datavideoDuration'];
+		$result->videoImage    = $plugins['video_datavideoImageUrl'];
+		// Change image file name to use the smaller version
+		$result->videoImage = str_replace('_902', '_280', $result->videoImage);
+
+		return $result;
 	}
 }

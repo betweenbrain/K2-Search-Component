@@ -70,7 +70,8 @@ $model = $this->getModel();
 								href="<?php echo $tag['hash'] ?>"
 								title="<?php echo $tag['name'] ?>"
 								data-filter="<?php echo $tag['data-filter'] ?>"
-								onClick="_gaq.push(['_trackEvent', 'Interaction', 'Video', 'Search Showing Filter: <?php echo $tag['nickname'] ?>']);"><?php echo $tag['nickname'] ?>
+								onClick="_gaq.push(['_trackEvent', 'Interaction', 'Video', 'Search Showing Filter: <?php echo $tag['nickname'] ?>']);">
+								<?php echo $tag['nickname'] ?>
 								<span class="count"><?php echo $tag['count'] ?></span>
 							</a>
 						</li>
@@ -86,16 +87,7 @@ $model = $this->getModel();
 		<div class="itemList clearfix">
 			<?php foreach ($this->results as $result) : ?>
 				<?php
-
-				$plugins = parse_ini_string($result->plugins, false, INI_SCANNER_RAW);
-
-				$result->tags          = strtolower(str_replace(',', ' ', $plugins['tags']));
-				$result->link          = K2HelperRoute::getItemRoute($result->id . ':' . urlencode($result->alias), $result->catid . ':' . urlencode($result->category->alias));
-				$result->link          = urldecode(JRoute::_($result->link));
-				$result->videoDuration = $plugins['video_datavideoDuration'];
-				$result->videoImage    = $plugins['video_datavideoImageUrl'];
-				// Change image file name to use the smaller version
-				$result->videoImage = str_replace('_902', '_280', $result->videoImage);
+				$result = $model->formatResults($result);
 				?>
 
 				<div class="<?php echo $result->tags ?> itemContainer">
