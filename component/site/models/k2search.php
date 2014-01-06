@@ -80,34 +80,6 @@ class K2searchModelK2search extends JModel
 	}
 
 	/**
-	 * Rudimentary term highlighting
-	 *
-	 * TODO: Current regex looks only for alpha chars and spaces to avoid html matches.
-	 *
-	 * @param $term
-	 * @param $results
-	 *
-	 * @return mixed
-	 */
-	private function highlightTerms($term, $results)
-	{
-		foreach ($results as $result)
-		{
-			if (strpos($term, ' '))
-			{
-				$terms = explode(' ', $term);
-				foreach ($terms as $term)
-				{
-					$result->introtext = preg_replace('/([a-zA-Z\s])(' . $term . ')([a-zA-Z\s])/i', '$1<i style="background: yellow">$2</i>$3', $result->introtext);
-				}
-			}
-			$result->introtext = preg_replace('/([a-zA-Z\s])(' . $term . ')([a-zA-Z\s])/i', '$1<i style="background: yellow">$2</i>$3', $result->introtext);
-		}
-
-		return $results;
-	}
-
-	/**
 	 * Processes returned results to generate a listing of tags and their count
 	 *
 	 * @return array
