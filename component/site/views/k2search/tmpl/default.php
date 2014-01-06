@@ -9,7 +9,6 @@
  * License    GNU GPL v3 or later
  */
 
-include(JPATH_SITE . '/components/com_k2/helpers/route.php');
 // Get the current model so we can call functions within it
 $model = $this->getModel();
 ?>
@@ -86,13 +85,9 @@ $model = $this->getModel();
 
 		<div class="itemList clearfix">
 			<?php foreach ($this->results as $result) : ?>
-				<?php
-				$result = $model->formatResults($result);
-				?>
-
+				<?php $result = $model->formatResults($result); ?>
 				<div class="<?php echo $result->tags ?> itemContainer">
 					<div class="catItemView">
-
 						<a class="blockContainer" href="<?php echo $result->link; ?>"
 							title="<?php echo $model->formatTitle($result->title) ?>">
 							<div class="itemDescription">
@@ -106,9 +101,7 @@ $model = $this->getModel();
 							<p class="views">
 								<?php echo number_format($result->hits); ?> <?php echo JText::_('K2_TIMES'); ?>
 							</p>
-
 							<h1 class="title"><?php echo $model->formatTitle($result->title); ?></h1>
-
 							<p class="subtitle">
 								<span class="duration"><?php echo $result->videoDuration ?></span> |
 								<span

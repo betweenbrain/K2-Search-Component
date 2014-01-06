@@ -10,6 +10,7 @@
  */
 
 jimport('joomla.application.component.model');
+include(JPATH_SITE . '/components/com_k2/helpers/route.php');
 
 class K2searchModelK2search extends JModel
 {
@@ -132,9 +133,9 @@ class K2searchModelK2search extends JModel
 					{
 						$tags[$tag]['count'] = 1;
 					}
-					$tags[$tag]['name']        = $tag;
-					$tags[$tag]['compare']     = $tag;
-					$tags[$tag]['alias']       = JFilterOutput::stringURLSafe($tag);
+					$tags[$tag]['name']    = $tag;
+					$tags[$tag]['compare'] = $tag;
+					$tags[$tag]['alias']   = JFilterOutput::stringURLSafe($tag);
 
 					// Truncate tag name at colon if it contains one
 					$tags[$tag]['nickname'] = strpos($tag, ':') ? strstr($tag, ':', true) : $tag;
@@ -193,7 +194,13 @@ class K2searchModelK2search extends JModel
 	{
 		$plugins = parse_ini_string($result->plugins, false, INI_SCANNER_RAW);
 
-		$result->tags          = strtolower(str_replace(',', ' ', $plugins['tags']));
+		$tags         = explode(',', $plugins['tags']);
+		$result->tags = null;
+		foreach ($tags as $tag)
+		{
+			$result->tags .= JFilterOutput::stringURLSafe($tag);
+		}
+		$result->tags          = trim($result->tags);
 		$result->link          = K2HelperRoute::getItemRoute($result->id . ':' . urlencode($result->alias), $result->catid . ':' . urlencode($result->category->alias));
 		$result->link          = urldecode(JRoute::_($result->link));
 		$result->videoDuration = $plugins['video_datavideoDuration'];
