@@ -69,11 +69,7 @@ class K2searchModelK2search extends JModel
 
 		$this->db->setQuery($query);
 
-		$results = $this->db->loadObjectList('id');
-		if (!empty($results))
-		{
-			$results = $this->highlightTerms($term, $results);
-		}
+		$results                   = $this->db->loadObjectList('id');
 		$count                     = count($results);
 		$results['results']->term  = $term;
 		$results['results']->count = $count;
@@ -112,7 +108,6 @@ class K2searchModelK2search extends JModel
 
 	function getTags()
 	{
-
 		$items = $this->search();
 		$tags  = array();
 		foreach ($items as $item)
