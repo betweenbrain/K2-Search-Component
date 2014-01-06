@@ -85,7 +85,7 @@ $model = $this->getModel();
 
 		<div class="itemList clearfix">
 			<?php foreach ($this->results as $result) : ?>
-				<?php $result = $model->formatResults($result); ?>
+				<?php $result = $model->formatResult($result); ?>
 				<div class="<?php echo $result->tags ?> itemContainer">
 					<div class="catItemView">
 						<a class="blockContainer" href="<?php echo $result->link; ?>"

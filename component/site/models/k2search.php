@@ -190,7 +190,7 @@ class K2searchModelK2search extends JModel
 	 *
 	 * @return mixed
 	 */
-	function formatResults($result)
+	function formatResult($result)
 	{
 		$plugins = parse_ini_string($result->plugins, false, INI_SCANNER_RAW);
 
