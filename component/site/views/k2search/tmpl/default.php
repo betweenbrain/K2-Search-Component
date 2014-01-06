@@ -10,10 +10,11 @@
  */
 
 include(JPATH_SITE . '/components/com_k2/helpers/route.php');
-
+// Get the current model so we can call functions within it
+$model = $this->getModel();
 ?>
 <div class="container">
-	<?php if (count($this->tags)) :
+	<?php if (count($this->tagList)) :
 		$app = JFactory::getApplication();
 		$doc = JFactory::getDocument();
 		$doc->addScript('http://cdn.guggenheim.org/lib/js/jquery.isotope.min.js');
@@ -83,11 +84,6 @@ include(JPATH_SITE . '/components/com_k2/helpers/route.php');
 	<div id="k2Container" class="itemListView isotope" style="position: relative; overflow: visible; height: 1344px;">
 
 		<div class="itemList clearfix">
-			<?php if (isset($this->results['results']->message)) : ?>
-				<p><?php echo $this->results['results']->message ?></p>
-			<?php endif ?>
-			<?php unset($this->results['results']) ?>
-
 			<?php foreach ($this->results as $result) : ?>
 				<?php
 				// Trim title if longer than 50

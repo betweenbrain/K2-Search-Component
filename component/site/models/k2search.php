@@ -106,7 +106,12 @@ class K2searchModelK2search extends JModel
 		return $results;
 	}
 
-	function getTags()
+	/**
+	 * Processes returned results to generate a listing of tags and their count
+	 *
+	 * @return array
+	 */
+	function getTagList()
 	{
 		$items = $this->search();
 		$tags  = array();
