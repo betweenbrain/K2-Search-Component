@@ -106,7 +106,7 @@ include(JPATH_SITE . '/components/com_k2/helpers/route.php');
 
 				$plugins = parse_ini_string($result->plugins, false, INI_SCANNER_RAW);
 
-				$result->tags          = str_replace(',', ' ', $plugins['tags']);
+				$result->tags          = strtolower(str_replace(',', ' ', $plugins['tags']));
 				$result->link          = K2HelperRoute::getItemRoute($result->id . ':' . urlencode($result->alias), $result->catid . ':' . urlencode($result->category->alias));
 				$result->link          = urldecode(JRoute::_($result->link));
 				$result->videoDuration = $plugins['video_datavideoDuration'];
