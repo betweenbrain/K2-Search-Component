@@ -22,6 +22,7 @@ $model = $this->getModel();
 		<div class="showing">
 			<h3></h3>
 			<?php echo $this->results['results']->count ?> results for "<?php echo $this->results['results']->term ?>"
+			<?php unset($this->results['results']) ?>
 			<select class="filters">
 				<option data-filter="date" class="selected">Recently Added</option>
 				<option data-filter="views">Most Viewed</option>
