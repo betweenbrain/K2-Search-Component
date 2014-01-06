@@ -11,9 +11,11 @@
 
 jimport('joomla.application.component.model');
 
-class K2searchModelK2search extends JModel {
+class K2searchModelK2search extends JModel
+{
 
-	function __construct() {
+	function __construct()
+	{
 		parent::__construct();
 
 		$this->db = JFactory::getDBO();
@@ -24,7 +26,8 @@ class K2searchModelK2search extends JModel {
 	 *
 	 * @return string The greeting to be displayed to the user
 	 */
-	function search() {
+	function search()
+	{
 
 		$params     = & JComponentHelper::getParams('com_k2search');
 		$k2category = htmlspecialchars($params->get('k2category'));
@@ -32,7 +35,8 @@ class K2searchModelK2search extends JModel {
 		$term               = JRequest::getVar('term');
 		$results['results'] = new stdClass();
 
-		if (!$term) {
+		if (!$term)
+		{
 			$results['results']->message = JText::_('COM_K2_SEARCH_NO_SEARCH_TERM');
 
 			return $results;
@@ -47,25 +51,28 @@ class K2searchModelK2search extends JModel {
 		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)
 		as relevance
 		FROM ' . $this->db->nameQuote('#__k2_items') . '
-		WHERE ' . $this->db->nameQuote('published') . ' = 1';
+		WHERE ' . $this->db->nameQuote('published') . ' = 1
+		AND ' . $this->db->nameQuote('trash') . ' = 1';
 
-		if ($k2category) {
+		if ($k2category)
+		{
 			$query .= ' AND ' . $this->db->nameQuote('catid') . ' = ' . $k2category . '';
 		}
 
-		$query .= ' AND MATCH (
+		$query .= ' AND MATCH(
 		' . $this->db->nameQuote('title') . ',
 		' . $this->db->nameQuote('introtext') . ',
 		' . $this->db->nameQuote('fulltext') . ',
 		' . $this->db->nameQuote('extra_fields_search') . '
 		)
-		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)
+		AGAINST(\'*' . $term . '*\' IN BOOLEAN MODE)
 		ORDER BY relevance DESC';
 
 		$this->db->setQuery($query);
 
 		$results = $this->db->loadObjectList('id');
-		if (!empty($results)) {
+		if (!empty($results))
+		{
 			$results = $this->highlightTerms($term, $results);
 		}
 		$count                     = count($results);
@@ -85,12 +92,16 @@ class K2searchModelK2search extends JModel {
 	 *
 	 * @return mixed
 	 */
-	private function highlightTerms($term, $results) {
+	private function highlightTerms($term, $results)
+	{
 
-		foreach ($results as $result) {
-			if (strpos($term, ' ')) {
+		foreach ($results as $result)
+		{
+			if (strpos($term, ' '))
+			{
 				$terms = explode(' ', $term);
-				foreach ($terms as $term) {
+				foreach ($terms as $term)
+				{
 					$result->introtext = preg_replace('/([a-zA-Z\s])(' . $term . ')([a-zA-Z\s])/i', '$1<i style="background: yellow">$2</i>$3', $result->introtext);
 				}
 			}
