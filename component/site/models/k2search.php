@@ -143,6 +143,7 @@ class K2searchModelK2search extends JModel
 					$tags[$tag]['name']        = $tag;
 					$tags[$tag]['compare']     = $tag;
 					$tags[$tag]['alias']       = JFilterOutput::stringURLSafe($tag);
+					$tags[$tag]['class']       = $tags[$tag]['alias'];
 					$tags[$tag]['hash']        = '#' . $tags[$tag]['alias'];
 					$tags[$tag]['data-filter'] = '.' . $tags[$tag]['alias'];
 

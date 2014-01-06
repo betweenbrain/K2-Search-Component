@@ -68,7 +68,7 @@ $model = $this->getModel();
 						}
 						?>
 						<li>
-							<a class="cloud <?php echo $tag['alias'] ?>"
+							<a class="cloud <?php echo $tag['class'] ?>"
 								href="<?php echo $tag['hash'] ?>"
 								title="<?php echo $tag['name'] ?>"
 								data-filter="<?php echo $tag['data-filter'] ?>"
