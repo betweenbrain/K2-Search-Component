@@ -118,7 +118,7 @@ class K2searchModelK2search extends JModel
 		foreach ($items as $item)
 		{
 			$itemPluginsData = parse_ini_string($item->plugins, false, INI_SCANNER_RAW);
-			$item->tags      = explode(',', $itemPluginsData['tags']);
+			$item->tags      = explode('|', $itemPluginsData['tags']);
 
 			if (isset($item->tags) && (!empty($item->tags[0])))
 			{
@@ -194,7 +194,7 @@ class K2searchModelK2search extends JModel
 	{
 		$plugins = parse_ini_string($result->plugins, false, INI_SCANNER_RAW);
 
-		$tags         = explode(',', $plugins['tags']);
+		$tags         = explode('|', $plugins['tags']);
 		$result->tags = null;
 		foreach ($tags as $tag)
 		{
