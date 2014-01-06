@@ -121,7 +121,7 @@ class K2searchModelK2search extends JModel
 		$tags[$items['results']->term]['count']       = $items['results']->count;
 		$tags[$items['results']->term]['data-filter'] = '*';
 		$tags[$items['results']->term]['name']        = 'All tags matching ' . $items['results']->term;
-		$tags[$items['results']->term]['nickname']    = 'All tags matching' . $items['results']->term;
+		$tags[$items['results']->term]['nickname']    = 'All tags matching ' . $items['results']->term;
 		foreach ($items as $item)
 		{
 			$itemPluginsData = parse_ini_string($item->plugins, false, INI_SCANNER_RAW);
@@ -140,9 +140,11 @@ class K2searchModelK2search extends JModel
 					{
 						$tags[$tag]['count'] = 1;
 					}
-					$tags[$tag]['name']    = $tag;
-					$tags[$tag]['compare'] = $tag;
-					$tags[$tag]['alias']   = JFilterOutput::stringURLSafe($tag);
+					$tags[$tag]['name']        = $tag;
+					$tags[$tag]['compare']     = $tag;
+					$tags[$tag]['alias']       = JFilterOutput::stringURLSafe($tag);
+					$tags[$tag]['hash']        = '#' . $tags[$tag]['alias'];
+					$tags[$tag]['data-filter'] = '.' . $tags[$tag]['alias'];
 
 					// Truncate tag name at colon if it contains one
 					$tags[$tag]['nickname'] = strpos($tag, ':') ? strstr($tag, ':', true) : $tag;
