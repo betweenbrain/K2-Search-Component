@@ -67,9 +67,9 @@ $model = $this->getModel();
 						?>
 						<li>
 							<a class="cloud <?php echo $tag['alias'] ?>"
-								href="<?php echo $tag['hash'] ?>"
+								href="#<?php echo $tag['alias'] ?>"
 								title="<?php echo $tag['name'] ?>"
-								data-filter="<?php echo $tag['data-filter'] ?>"
+								data-filter=".<?php echo $tag['alias'] ?>"
 								onClick="_gaq.push(['_trackEvent', 'Interaction', 'Video', 'Search Showing Filter: <?php echo $tag['nickname'] ?>']);">
 								<?php echo $tag['nickname'] ?>
 								<span class="count"><?php echo $tag['count'] ?></span>
