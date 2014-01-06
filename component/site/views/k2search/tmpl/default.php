@@ -14,17 +14,15 @@ $model = $this->getModel();
 ?>
 <div class="container">
 	<?php if (count($model->getTagList())) :
-		$app = JFactory::getApplication();
-		$doc = JFactory::getDocument();
+		$app   = JFactory::getApplication();
+		$count = $this->results['results']->count;
+		$doc   = JFactory::getDocument();
 		$doc->addScript('http://cdn.guggenheim.org/lib/js/jquery.isotope.min.js');
 		$doc->addScript(JURI::base(true) . '/templates/' . $app->getTemplate() . '/js/jquery.video-filter-init.min.js');
 		?>
-		<h3>
-			<?php echo $this->results['results']->count ?> results for "<?php echo $this->results['results']->term ?>"
-		</h3>
-			<?php unset($this->results['results']) ?>
 		<div class="showing">
-			<h3></h3>
+			<h3>All items matching &ldquo;<?php echo $this->results['results']->term ?>&rdquo;</h3>
+			<?php unset($this->results['results']) ?>
 			<select class="filters">
 				<option data-filter="date" class="selected">Recently Added</option>
 				<option data-filter="views">Most Viewed</option>
@@ -89,7 +87,30 @@ $model = $this->getModel();
 		<div class="itemList clearfix">
 			<?php foreach ($this->results as $result) : ?>
 				<?php $result = $model->formatResult($result); ?>
-				<div class="<?php echo $result->tags ?> itemContainer">
+				<?php
+				$first = fmod(($key + 1), 3);
+				if ((($key + 1) % 3 == 0) || count($count) < 3)
+				{
+					$lastContainer = ' last';
+				}
+				else
+				{
+					$lastContainer = ' middle';
+				}
+				if ($first == 1)
+				{
+					$item->position = 'first';
+				}
+				else
+				{
+					$item->position = $lastContainer;
+				}
+				?>
+				<div class="<?php echo $result->tags ?> itemContainer<?php echo $lastContainer;
+				if ($first == 1)
+				{
+					echo ' first';
+				} ?>"<?php echo (count($this->leading) == 1) ? '' : ' style="width:' . number_format(100 / 3, 1) . '%;"'; ?>>
 					<div class="catItemView">
 						<a class="blockContainer" href="<?php echo $result->link; ?>"
 							title="<?php echo $model->formatTitle($result->title); ?>">
@@ -121,6 +142,9 @@ $model = $this->getModel();
 							</p>
 						</div>
 					</div>
+					<?php if (($key + 1) % 3 == 0): ?>
+						<div class="clr"></div>
+					<?php endif; ?>
 				</div>
 			<?php endforeach; ?>
 		</div>

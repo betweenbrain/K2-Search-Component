@@ -120,8 +120,8 @@ class K2searchModelK2search extends JModel
 		$tags[$items['results']->term]['compare']     = '';
 		$tags[$items['results']->term]['count']       = $items['results']->count;
 		$tags[$items['results']->term]['data-filter'] = '*';
-		$tags[$items['results']->term]['name']        = 'All Items Matching ' . $items['results']->term;
-		$tags[$items['results']->term]['nickname']    = 'All Items Matching &ldquo;' . $items['results']->term . '&rdquo;';
+		$tags[$items['results']->term]['name']        = 'All Items Matching &ldquo;' . $items['results']->term . '&rdquo;';
+		$tags[$items['results']->term]['nickname']    = $tags[$items['results']->term]['name'];
 		foreach ($items as $item)
 		{
 			$itemPluginsData = parse_ini_string($item->plugins, false, INI_SCANNER_RAW);
