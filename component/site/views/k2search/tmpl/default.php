@@ -86,22 +86,6 @@ $model = $this->getModel();
 		<div class="itemList clearfix">
 			<?php foreach ($this->results as $result) : ?>
 				<?php
-				// Trim title if longer than 50
-				if (strlen($result->title) >= 60)
-				{
-					// Trim to 35 chars
-					$result->shortTitle = substr($result->title, 0, 52);
-					// Trim non-alphanumeric and spaces off end
-					$result->shortTitle = preg_replace('/[^a-z0-9]+$/i', '', $result->shortTitle);
-					// Trim string back to nearest space
-					$result->shortTitle = preg_replace('/[^\s]+$/i', '', $result->shortTitle);
-					// Trim off space left over and add elipses
-					$result->shortTitle = preg_replace('/[^a-z0-9]+$/i', '', $result->shortTitle) . '&hellip;';
-				}
-				else
-				{
-					$result->shortTitle = $result->title;
-				}
 
 				$plugins = parse_ini_string($result->plugins, false, INI_SCANNER_RAW);
 
@@ -118,7 +102,7 @@ $model = $this->getModel();
 					<div class="catItemView">
 
 						<a class="blockContainer" href="<?php echo $result->link; ?>"
-							title="<?php echo $result->title ?>">
+							title="<?php echo $model->formatTitle($result->title) ?>">
 							<div class="itemDescription">
 								<p class="itemTitle"><?php echo $result->shortTitle; ?>
 									<span class="duration"><?php echo $result->videoDuration ?></span></p>
@@ -131,7 +115,7 @@ $model = $this->getModel();
 								<?php echo number_format($result->hits); ?> <?php echo JText::_('K2_TIMES'); ?>
 							</p>
 
-							<h1 class="title"><?php echo $result->title; ?></h1>
+							<h1 class="title"><?php echo $model->formatTitle($result->title); ?></h1>
 
 							<p class="subtitle">
 								<span class="duration"><?php echo $result->videoDuration ?></span> |

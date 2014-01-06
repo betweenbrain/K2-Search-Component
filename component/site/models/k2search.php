@@ -154,4 +154,34 @@ class K2searchModelK2search extends JModel
 
 		return $tags;
 	}
+
+	/**
+	 * Formats the raw title to comply with design requirements
+	 *
+	 * @param $title
+	 *
+	 * @return mixed|string
+	 */
+	function formatTitle($title)
+	{
+		// Trim title if longer than 60
+		if (strlen($title) >= 60)
+		{
+			// Trim to 52 chars
+			$shortTitle = substr($title, 0, 52);
+			// Trim non-alphanumeric and spaces off end
+			$shortTitle = preg_replace('/[^a-z0-9]+$/i', '', $shortTitle);
+			// Trim string back to nearest space for whole word
+			$shortTitle = preg_replace('/[^\s]+$/i', '', $shortTitle);
+			// Trim off space left over and add ellipses
+			$shortTitle = preg_replace('/[^a-z0-9]+$/i', '', $shortTitle) . '&hellip;';
+		}
+		else
+		{
+			$shortTitle = $title;
+		}
+
+		return $shortTitle;
+
+	}
 }
