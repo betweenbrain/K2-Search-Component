@@ -13,7 +13,7 @@
 $model = $this->getModel();
 ?>
 <div class="container">
-	<?php if (count($this->tagList)) :
+	<?php if (count($model->getTagList())) :
 		$app = JFactory::getApplication();
 		$doc = JFactory::getDocument();
 		$doc->addScript('http://cdn.guggenheim.org/lib/js/jquery.isotope.min.js');
@@ -89,9 +89,9 @@ $model = $this->getModel();
 				<div class="<?php echo $result->tags ?> itemContainer">
 					<div class="catItemView">
 						<a class="blockContainer" href="<?php echo $result->link; ?>"
-							title="<?php echo $model->formatTitle($result->title) ?>">
+							title="<?php echo $model->formatTitle($result->title); ?>">
 							<div class="itemDescription">
-								<p class="itemTitle"><?php echo $result->shortTitle; ?>
+								<p class="itemTitle"><?php echo $model->formatTitle($result->title); ?>
 									<span class="duration"><?php echo $result->videoDuration ?></span></p>
 							</div>
 							<img src="<?php echo $result->videoImage; ?>" />
