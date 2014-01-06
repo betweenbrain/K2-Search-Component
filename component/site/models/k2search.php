@@ -209,7 +209,7 @@ class K2searchModelK2search extends JModel
 		$result->tags = null;
 		foreach ($tags as $tag)
 		{
-			$result->tags .= JFilterOutput::stringURLSafe($tag);
+			$result->tags .= ' ' . JFilterOutput::stringURLSafe($tag) . ' ';
 		}
 		$result->tags          = trim($result->tags);
 		$result->link          = K2HelperRoute::getItemRoute($result->id . ':' . urlencode($result->alias), $result->catid . ':' . urlencode($result->category->alias));
