@@ -33,23 +33,23 @@ class K2searchModelK2search extends JModel
 		$exactPhrases = $params->get('exactPhrases');
 		$k2category   = htmlspecialchars($params->get('k2category'));
 
-		$term               = JRequest::getVar('term');
+		$input              = JRequest::getVar('input');
 		$results['results'] = new stdClass();
 
-		if (!$term)
+		if (!$input)
 		{
 			$results['results']->message = JText::_('COM_K2_SEARCH_NO_SEARCH_TERM');
 
 			return $results;
 		}
 
-		if ($exactPhrases && strpos($term, ' '))
+		if ($exactPhrases && strpos($input, ' '))
 		{
-			$needle = '"' . $term . '"';
+			$needle = '"' . $input . '"';
 		}
 		else
 		{
-			$needle = '*' . $term . '*';
+			$needle = '*' . $input . '*';
 		}
 
 		$query = 'SELECT *,
@@ -83,10 +83,10 @@ class K2searchModelK2search extends JModel
 		$results = $this->db->loadObjectList('id');
 		if (!empty($results))
 		{
-			$results = $this->highlightTerms($term, $results);
+			$results = $this->highlightTerms($input, $results);
 		}
 		$count                     = count($results);
-		$results['results']->term  = $term;
+		$results['results']->term  = $input;
 		$results['results']->count = $count;
 
 		return $results;
