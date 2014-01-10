@@ -33,37 +33,39 @@ class K2searchModelK2search extends JModel
 		$exactPhrases = $params->get('exactPhrases');
 		$k2category   = htmlspecialchars($params->get('k2category'));
 
-		$input              = JRequest::getVar('input');
+		$term               = JRequest::getVar('term');
 		$results['results'] = new stdClass();
 
-		if (!$input)
+		if (!$term)
 		{
 			$results['results']->message = JText::_('COM_K2_SEARCH_NO_SEARCH_TERM');
 
 			return $results;
 		}
 
-		if ($exactPhrases && strpos($input, ' '))
+		if ($exactPhrases && strpos($term, ' '))
 		{
-			$input = '"' . $input . '"';
+			$needle = '"' . $term . '"';
 		}
 		else
 		{
-			$input = '*' . $input . '*';
+			$needle = '*' . $term . '*';
 		}
+
+		$results = $this->getMatches($needle, $k2category);
 
 		if (!empty($results))
 		{
-			$results = $this->highlightTerms($input, $results);
+			$results = $this->highlightTerms($term, $results);
 		}
 		$count                     = count($results);
-		$results['results']->term  = $input;
+		$results['results']->term  = $term;
 		$results['results']->count = $count;
 
 		return $results;
 	}
 
-	private function getMatches($input)
+	private function getMatches($needle, $k2category)
 	{
 		$query = 'SELECT *,
 		MATCH (
@@ -71,7 +73,7 @@ class K2searchModelK2search extends JModel
 		' . $this->db->nameQuote('introtext') . ',
 		' . $this->db->nameQuote('fulltext') . '
 		)
-		AGAINST (\'' . $input . '\' IN BOOLEAN MODE)
+		AGAINST (\'' . $needle . '\' IN BOOLEAN MODE)
 		as relevance
 		FROM ' . $this->db->nameQuote('#__k2_items') . '
 		WHERE ' . $this->db->nameQuote('published') . ' = 1
@@ -88,12 +90,17 @@ class K2searchModelK2search extends JModel
 		' . $this->db->nameQuote('fulltext') . ',
 		' . $this->db->nameQuote('extra_fields_search') . '
 		)
-		AGAINST (\'' . $input . '\' IN BOOLEAN MODE)
+		AGAINST (\'' . $needle . '\' IN BOOLEAN MODE)
 		ORDER BY relevance DESC';
 
 		$this->db->setQuery($query);
 
-		$results = $this->db->loadObjectList('id');
+		if ($results = $this->db->loadObjectList('id'))
+		{
+			return $results;
+		}
+
+		return false;
 	}
 
 	/**
