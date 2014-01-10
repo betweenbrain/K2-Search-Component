@@ -29,9 +29,10 @@ class K2searchModelK2search extends JModel
 	function search()
 	{
 
-		$params             = & JComponentHelper::getParams('com_k2search');
-		$exactPhrases       = $params->get('exactPhrases');
-		$k2category         = $params->get('k2category');
+		$params           = & JComponentHelper::getParams('com_k2search');
+		$exactPhrases     = $params->get('exactPhrases');
+		$highlightMatches = $params->get('highlightMatches');
+		$k2category       = $params->get('k2category');
 
 		$term               = JRequest::getVar('term');
 		$results['results'] = new stdClass();
@@ -54,7 +55,7 @@ class K2searchModelK2search extends JModel
 
 		$results = $this->getMatches($needle, $k2category);
 
-		if ($results !== false)
+		if ($results !== false && $highlightMatches)
 		{
 			$results = $this->highlightTerms($term, $results);
 		}
