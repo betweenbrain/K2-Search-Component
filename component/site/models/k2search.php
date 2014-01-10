@@ -45,20 +45,33 @@ class K2searchModelK2search extends JModel
 
 		if ($exactPhrases && strpos($input, ' '))
 		{
-			$needle = '"' . $input . '"';
+			$input = '"' . $input . '"';
 		}
 		else
 		{
-			$needle = '*' . $input . '*';
+			$input = '*' . $input . '*';
 		}
 
+		if (!empty($results))
+		{
+			$results = $this->highlightTerms($input, $results);
+		}
+		$count                     = count($results);
+		$results['results']->term  = $input;
+		$results['results']->count = $count;
+
+		return $results;
+	}
+
+	private function getMatches($input)
+	{
 		$query = 'SELECT *,
 		MATCH (
 		' . $this->db->nameQuote('title') . ',
 		' . $this->db->nameQuote('introtext') . ',
 		' . $this->db->nameQuote('fulltext') . '
 		)
-		AGAINST (\'' . $needle . '\' IN BOOLEAN MODE)
+		AGAINST (\'' . $input . '\' IN BOOLEAN MODE)
 		as relevance
 		FROM ' . $this->db->nameQuote('#__k2_items') . '
 		WHERE ' . $this->db->nameQuote('published') . ' = 1
@@ -75,21 +88,12 @@ class K2searchModelK2search extends JModel
 		' . $this->db->nameQuote('fulltext') . ',
 		' . $this->db->nameQuote('extra_fields_search') . '
 		)
-		AGAINST (\'' . $needle . '\' IN BOOLEAN MODE)
+		AGAINST (\'' . $input . '\' IN BOOLEAN MODE)
 		ORDER BY relevance DESC';
 
 		$this->db->setQuery($query);
 
 		$results = $this->db->loadObjectList('id');
-		if (!empty($results))
-		{
-			$results = $this->highlightTerms($input, $results);
-		}
-		$count                     = count($results);
-		$results['results']->term  = $input;
-		$results['results']->count = $count;
-
-		return $results;
 	}
 
 	/**
