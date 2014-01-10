@@ -55,6 +55,25 @@ class K2searchModelK2search extends JModel
 
 		$results = $this->getMatches($needle, $k2category);
 
+		if ($results === false)
+		{
+			if (strpos($term, ' '))
+			{
+				$terms = explode(' ', $term);
+				foreach ($terms as $term)
+				{
+					$suggestion[] = $this->getSoundexSuggestion($term);
+				}
+				$suggestion = implode(' ', $suggestion);
+			}
+			else
+			{
+				$suggestion = $this->getSoundexSuggestion($term);
+			}
+
+			echo 'Did you mean ' . $suggestion . '?';
+		}
+
 		if ($results !== false && $highlightMatches)
 		{
 			$results = $this->highlightTerms($term, $results);
@@ -104,6 +123,34 @@ class K2searchModelK2search extends JModel
 		}
 
 		return false;
+	}
+
+	/**
+	 * Attempts to locate a similar word based on soundex matches in the database
+	 *
+	 * @param $term
+	 *
+	 * @return bool
+	 */
+	private function getSoundexSuggestion($term)
+	{
+
+		$query = 'SELECT ' . $this->db->nameQuote('word') . '
+				FROM ' . $this->db->nameQuote('#__k2_search_soundex') . '
+				WHERE ' . $this->db->nameQuote('soundex') . ' LIKE
+				' . $this->db->quote('%' . soundex($term) . '%');
+
+		$this->db->setQuery($query);
+
+		$results = $this->db->loadResult();
+
+		if (!empty($results))
+		{
+			return $results;
+		}
+
+		return false;
+
 	}
 
 	/**
