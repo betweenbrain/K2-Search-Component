@@ -29,8 +29,9 @@ class K2searchModelK2search extends JModel
 	function search()
 	{
 
-		$params     = & JComponentHelper::getParams('com_k2search');
-		$k2category = htmlspecialchars($params->get('k2category'));
+		$params       = & JComponentHelper::getParams('com_k2search');
+		$exactPhrases = $params->get('exactPhrases');
+		$k2category   = htmlspecialchars($params->get('k2category'));
 
 		$term               = JRequest::getVar('term');
 		$results['results'] = new stdClass();
@@ -42,13 +43,22 @@ class K2searchModelK2search extends JModel
 			return $results;
 		}
 
+		if ($exactPhrases && strpos($term, ' '))
+		{
+			$needle = '"' . $term . '"';
+		}
+		else
+		{
+			$needle = '*' . $term . '*';
+		}
+
 		$query = 'SELECT *,
 		MATCH (
 		' . $this->db->nameQuote('title') . ',
 		' . $this->db->nameQuote('introtext') . ',
 		' . $this->db->nameQuote('fulltext') . '
 		)
-		AGAINST (\'*' . $term . '*\' IN BOOLEAN MODE)
+		AGAINST (\'' . $needle . '\' IN BOOLEAN MODE)
 		as relevance
 		FROM ' . $this->db->nameQuote('#__k2_items') . '
 		WHERE ' . $this->db->nameQuote('published') . ' = 1
@@ -65,7 +75,7 @@ class K2searchModelK2search extends JModel
 		' . $this->db->nameQuote('fulltext') . ',
 		' . $this->db->nameQuote('extra_fields_search') . '
 		)
-		AGAINST(\'*' . $term . '*\' IN BOOLEAN MODE)
+		AGAINST (\'' . $needle . '\' IN BOOLEAN MODE)
 		ORDER BY relevance DESC';
 
 		$this->db->setQuery($query);
