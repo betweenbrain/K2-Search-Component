@@ -54,10 +54,11 @@ class K2searchModelK2search extends JModel
 
 		$results = $this->getMatches($needle, $k2category);
 
-		if (!empty($results))
+		if ($results !== false)
 		{
 			$results = $this->highlightTerms($term, $results);
 		}
+
 		$count                     = count($results);
 		$results['results']->term  = $term;
 		$results['results']->count = $count;
@@ -94,8 +95,9 @@ class K2searchModelK2search extends JModel
 		ORDER BY relevance DESC';
 
 		$this->db->setQuery($query);
+		$results = $this->db->loadObjectList('id');
 
-		if ($results = $this->db->loadObjectList('id'))
+		if (!empty($results))
 		{
 			return $results;
 		}
