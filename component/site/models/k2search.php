@@ -52,7 +52,7 @@ class K2searchModelK2search extends JModel
 		as relevance
 		FROM ' . $this->db->nameQuote('#__k2_items') . '
 		WHERE ' . $this->db->nameQuote('published') . ' = 1
-		AND ' . $this->db->nameQuote('trash') . ' = 1';
+		AND ' . $this->db->nameQuote('trash') . ' = 0';
 
 		if ($k2category)
 		{
