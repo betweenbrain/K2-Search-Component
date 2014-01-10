@@ -15,6 +15,14 @@
 				<option value="1">COM_K2_SEARCH_YES</option>
 				<option value="">COM_K2_SEARCH_NO</option>
 			</param>
+			<param name="exactPhrases"
+			       type="list"
+			       default=""
+			       label="COM_K2_SEARCH_EXACT_PHRASES_LABEL"
+			       description="COM_K2_SEARCH_EXACT_PHRASES_DESC">
+				<option value="1">COM_K2_SEARCH_YES</option>
+				<option value="">COM_K2_SEARCH_NO</option>
+			</param>
 		</params>
 	</state>
 </metadata>
